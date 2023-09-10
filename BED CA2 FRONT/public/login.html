@@ -1,0 +1,97 @@
+<!-- //Name: Wong Wei Jun Daniel
+//Admin Num: p2243564
+//Class: DIT/FT/1B/02 -->
+
+<!DOCTYPE html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link href="css/login.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+		crossorigin="anonymous"></script>
+
+	<script>
+
+		$(document).ready(function () {
+
+			// Brings customers to the search page
+			$("#Customer").click(function () {
+				window.location.replace("http://localhost:3001/Home.html");
+			});
+
+			// Function to validate and give token to the admin for their session then brings them to the search page
+			$("#Login").click(function () {
+				var email = $('#email').val(); // getting value of email entered
+				var pwd = $('#pwd').val(); // getting value of password entered
+				var data = "{\"email\":\"" + email + "\", \"password\":\"" + pwd + "\"}";
+				console.log(data);
+				$.ajax({
+					url: 'http://localhost:8081/user/login',
+					type: 'POST',
+					data: data,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (data, textStatus, xhr) {
+						if (data != null) {
+							sessionStorage.setItem('token', data.token); // Stores the token in the session storage
+							sessionStorage.setItem('userInfo', data.UserData); // Stores the userdata in the session storage
+							window.location.replace("http://localhost:3001/Home.html");
+						} else {
+							console.log("an Error occured");
+						}
+					},
+					error: function (xhr, textStatus, errorThrown) {
+
+						alert("Username/Password Does Not Match");
+					}
+				});
+
+				return false;
+			});
+
+
+
+		}); 
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<!-- Container for login form -->
+		<div class="row justify-content-center login-form"> 
+			<div class="col-lg-4 ">
+				<form>
+					<h2 class="text-center text-white">Sign In</h2>
+					<div class="form-group mt-4">
+						<!-- Input text which gets the admin email address -->
+						<input type="email" class="form-control" id="email" placeholder="Email Address" required>
+					</div>
+					<div class="form-group mt-3">
+						<!-- Input text which gets the admin password -->
+						<input type="password" class="form-control " id="pwd" placeholder="Password" required>
+					</div>
+					<div class="form-group mt-4 d-grid">
+						<!-- Login button -->
+						<button type="submit" class="btn btn-primary border-0" id="Login">Login</button>
+					</div>
+
+					<!-- Button for customers -->
+					<div class="form-group mt-3 d-grid">
+						<button type="submit" class="btn btn-primary border-0" id="Customer">Continue as
+							Customer</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<!-- End of container for login form -->
+	</div>
+</body>
+
+</html>

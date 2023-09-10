@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+body{
+    background-image: url("../backgroundpic.jpg");
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed;
+  background-size: cover; /* Resize the background image to cover the entire container */
+  
+
+}
+
+
+
+.login-form {
+    margin: 200px auto;
+}
+/* Styling for the login form */
+.login-form form {
+    
+    background-color: rgba(30, 30, 30, 0.4);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   border-radius: 20px;
+    padding: 30px 30px 70px
+}
+/* Styling for the text in login form */
+.login-form h2 {
+    margin: 0 0 15px;
+}
+/* Styling for the form */
+.form-control {
+    min-height: 42px;
+    border-radius: 6px;
+}
+/* Styling for the buttons */
+.btn {        
+    background-color: #364F6B;
+    font-size: 15px;
+    
+}
